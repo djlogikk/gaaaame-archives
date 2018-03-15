@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Breakout", "Breakout\Breakout\Breakout.csproj", "{E7B49CCE-9475-4FFC-8E52-56141B9C1A3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BreakoutContent", "Breakout\BreakoutContent\BreakoutContent.contentproj", "{6FDE8133-6705-45E2-A54E-5DAAAD86E7B9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Cisco|x86 = Cisco|x86
+		Debug|x86 = Debug|x86
+		Lync|x86 = Lync|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E7B49CCE-9475-4FFC-8E52-56141B9C1A3D}.Cisco|x86.ActiveCfg = Release|x86
+		{E7B49CCE-9475-4FFC-8E52-56141B9C1A3D}.Cisco|x86.Build.0 = Release|x86
+		{E7B49CCE-9475-4FFC-8E52-56141B9C1A3D}.Debug|x86.ActiveCfg = Debug|x86
+		{E7B49CCE-9475-4FFC-8E52-56141B9C1A3D}.Debug|x86.Build.0 = Debug|x86
+		{E7B49CCE-9475-4FFC-8E52-56141B9C1A3D}.Lync|x86.ActiveCfg = Lync|x86
+		{E7B49CCE-9475-4FFC-8E52-56141B9C1A3D}.Lync|x86.Build.0 = Lync|x86
+		{6FDE8133-6705-45E2-A54E-5DAAAD86E7B9}.Cisco|x86.ActiveCfg = Release|x86
+		{6FDE8133-6705-45E2-A54E-5DAAAD86E7B9}.Debug|x86.ActiveCfg = Debug|x86
+		{6FDE8133-6705-45E2-A54E-5DAAAD86E7B9}.Lync|x86.ActiveCfg = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
