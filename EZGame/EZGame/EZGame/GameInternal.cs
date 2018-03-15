@@ -19,10 +19,16 @@ namespace EZGame
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Dictionary<string, Texture2D> images;
+        private List<Sprite> sprites;
+        public static int m_screenmax_x; // store a copy of max screen coordinate
+        public static int m_screenmax_y; // store a copy of max screen coordinate
+        public static int m_halfscreenmax_x; // store a copy of center screen coordinate
+        public static int m_halfscreenmax_y; // store a copy of center screen coordinate
 
-        public GameInternal(Dictionary<string, Texture2D> images)
+        public GameInternal(Dictionary<string, Texture2D> images, List<Sprite> sprites)
         {
             this.images = images;
+            this.sprites = sprites;
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
@@ -51,11 +57,23 @@ namespace EZGame
 
             // TODO: use this.Content to load your game content here
             // Create a new SpriteBatch, which can be used to draw textures.
-            foreach (string key in images.Keys)
+            for (int i = 0; i < images.Count(); i++)
             {
-                Texture2D tmpTexture = Content.Load<Texture2D>(key);
-                images["key"] = tmpTexture;
+                var item = images.ElementAt(i);
+                Texture2D tmpTexture = Content.Load<Texture2D>(item.Key);
+                images[item.Key] = tmpTexture;
             }
+
+            ReconfigureScreen();
+        }
+
+        private void ReconfigureScreen()
+        {
+            // Screen
+            m_screenmax_x = graphics.GraphicsDevice.Viewport.Width;
+            m_screenmax_y = graphics.GraphicsDevice.Viewport.Height;
+            m_halfscreenmax_x = m_screenmax_x/2;
+            m_halfscreenmax_y = m_screenmax_y/2;
         }
 
         /// <summary>
@@ -79,6 +97,10 @@ namespace EZGame
                 this.Exit();
 
             // TODO: Add your update logic here
+            foreach (Sprite sprite in sprites)
+            {
+                sprite.Update();
+            }
 
             base.Update(gameTime);
         }
@@ -92,6 +114,13 @@ namespace EZGame
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+            spriteBatch.Begin();
+            foreach (Sprite sprite in sprites)
+            {
+                spriteBatch.Draw(sprite.GetTexture(), new Vector2(sprite.xpos, sprite.ypos),
+                    null, Color.White, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0f);
+            }
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }

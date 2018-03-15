@@ -12,20 +12,17 @@ namespace EZGame
         GameInternal game;
         private GameType gameType;
         Dictionary<string,Texture2D> images = new Dictionary<string,Texture2D>();
-
+        List<Sprite> sprites = new List<Sprite>();
 
         public EZGame(GameType aType)
         {
             gameType = aType;
-
-            // initialise user's game elements, behaviours and interactions
-            GameInternal game = new GameInternal(images);
         }
 
         public void Run()
         {
             // create the game internals and start the game loop
-            game = new GameInternal(images);
+            game = new GameInternal(images, sprites);
             game.Run();
         }
 
@@ -38,6 +35,7 @@ namespace EZGame
         {
             AddImage(imageName);
             Sprite sprite = new Sprite(imageName, spriteBehaviour, images);
+            sprites.Add(sprite);
             return sprite;
         }
     }
@@ -57,21 +55,63 @@ namespace EZGame
         private Texture2D texture = null;
         private SpriteBehaviour MyBehaviour;
         private Dictionary<string, Texture2D> GameImages;
+        private static Random rnd = new Random();
 
         public Sprite(string imageName, SpriteBehaviour behaviour, Dictionary<string, Texture2D> images)
         {
             MyImage = imageName;
             MyBehaviour = behaviour;
             GameImages = images;
+            switch (behaviour)
+            {
+                case SpriteBehaviour.Bounce:
+                    xvel = rnd.Next(10) - 5;
+                    if (xvel == 0) xvel = 1;
+                    yvel = rnd.Next(10) - 5;
+                    if (yvel == 0) yvel = 1;
+                    break;
+            }
         }
 
         public Texture2D GetTexture()
         {
             if (texture == null)
             {
-                texture = GameImages([[MyImage);
+                texture = GameImages[MyImage];
             }
             Texture2D retval = texture;
+            return retval;
+        }
+
+        internal void Update()
+        {
+            switch (MyBehaviour)
+            {
+                case SpriteBehaviour.Bounce:
+                    xpos = xpos + xvel;
+                    ypos = ypos + yvel;
+                    if (xpos > GameInternal.m_screenmax_x)
+                    {
+                        xpos = GameInternal.m_screenmax_x;
+                        xvel = -Math.Abs(xvel);
+                    }
+                    if (ypos > GameInternal.m_screenmax_y)
+                    {
+                        ypos = GameInternal.m_screenmax_y;
+                        yvel = -Math.Abs(yvel);
+                    }
+                    if (xpos < 0)
+                    {
+                        xpos = 0;
+                        xvel = Math.Abs(xvel);
+                    }
+                    if (ypos < 0)
+                    {
+                        ypos = 0;
+                        yvel = Math.Abs(yvel);
+                    }
+                    break;
+            }
         }
     }
 

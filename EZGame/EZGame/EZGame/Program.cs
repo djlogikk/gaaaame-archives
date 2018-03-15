@@ -12,7 +12,8 @@ namespace EZGame
         static void Main(string[] args)
         {
             game = new EZGame(GameType.OneScreen);
-            game.AddSprite("Ball", SpriteBehaviour.Bounce);
+            for (int i=0;i<20;i++)
+                game.AddSprite("Ball", SpriteBehaviour.Bounce);
             game.Run();
         }
     }
